@@ -23,6 +23,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/detalle-prestamos/detalle-prestamos.module').then( m => m.DetallePrestamosPageModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'estadisticas',
+    loadChildren: () => import('./pages/estadisticas/estadisticas.module').then( m => m.EstadisticasPageModule),
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

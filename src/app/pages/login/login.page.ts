@@ -9,8 +9,8 @@ import { AuthService } from 'src/app/auth/auth.service';
   standalone: false,
 })
 export class LoginPage {
-  email = '';
-  password = '';
+  email = 'cristianvillalba1999@gmail.com';
+  password = '123456789';
   isDark = false;
 
   constructor(private auth: AuthService, private router: Router) {

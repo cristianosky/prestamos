@@ -71,15 +71,19 @@ export class HomePage implements OnInit {
   }
 
   filtrarPrestamos() {
-  const termino = this.filtro.trim().toLowerCase();
+    const termino = this.filtro.trim().toLowerCase();
 
-  if (!termino) {
-    this.prestamosFiltrados = [...this.prestamos];
-    return;
+    if (!termino) {
+      this.prestamosFiltrados = [...this.prestamos];
+      return;
+    }
+
+    this.prestamosFiltrados = this.prestamos.filter(p =>
+      p.nombre.toLowerCase().includes(termino)
+    );
   }
-
-  this.prestamosFiltrados = this.prestamos.filter(p =>
-    p.nombre.toLowerCase().includes(termino)
-  );
-}
+  
+  verEstadisticas() {
+    this.router.navigateByUrl('/estadisticas');
+  }
 }

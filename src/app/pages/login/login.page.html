@@ -1,0 +1,27 @@
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <h1>Bienvenido 👋</h1>
+    <p>Ingresa tus credenciales para continuar</p>
+
+    <ion-item lines="inset">
+      <ion-icon name="mail-outline" slot="start"></ion-icon>
+      <ion-input [(ngModel)]="email" placeholder="Correo electrónico" type="email"></ion-input>
+    </ion-item>
+
+    <ion-item lines="inset">
+      <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+      <ion-input [(ngModel)]="password" placeholder="Contraseña" type="password"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" color="primary" class="btn-login" (click)="login()">
+  Iniciar sesión
+</ion-button>
+  </div>
+
+  <!-- Botón de tema -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="toggleTheme()">
+      <ion-icon [name]="isDark ? 'sunny-outline' : 'moon-outline'"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

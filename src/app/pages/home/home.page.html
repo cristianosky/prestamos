@@ -1,12 +1,73 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header translucent>
+  <ion-toolbar color="primary">
     <ion-title>Inicio</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="logout()">Salir</ion-button>
+      <ion-button fill="clear" (click)="logout()">
+        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <h2>Bienvenido a la app 🎉</h2>
+
+  <!-- Bienvenida -->
+  <div class="welcome-box">
+    <h2>¡Bienvenido! 💸</h2>
+    <p>Gestiona tus préstamos fácilmente.</p>
+  </div>
+
+  <!-- Buscador -->
+  <ion-searchbar
+    placeholder="Buscar por nombre..."
+    [(ngModel)]="filtro"
+    (ionInput)="filtrarPrestamos()"
+    debounce="300"
+    showClearButton="focus">
+  </ion-searchbar>
+
+  <!-- Listado de préstamos -->
+  <ion-list *ngIf="prestamosFiltrados.length > 0">
+    <ion-item
+      *ngFor="let prestamo of prestamosFiltrados"
+      [routerLink]="['/prestamo', prestamo.id]"
+      detail
+      lines="full"
+      class="prestamo-item"
+      [class.pagado]="(prestamo.cuotasPagadas || 0) >= prestamo.cuotas"
+    >
+      <ion-label>
+        <h2>{{ prestamo.nombre }}</h2>
+        <p>
+          ${{ prestamo.monto | number:'1.0-0' }} |
+          Cuotas: {{ prestamo.cuotasPagadas || 0 }}/{{ prestamo.cuotas }}
+        </p>
+      </ion-label>
+
+      <ion-badge slot="end" color="success" *ngIf="(prestamo.cuotasPagadas || 0) >= prestamo.cuotas">
+        Pagado
+      </ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <!-- Si no hay resultados -->
+  <ion-text *ngIf="prestamosFiltrados.length === 0">
+    <p class="ion-padding">No hay préstamos que coincidan con la búsqueda.</p>
+  </ion-text>
+
+  <!-- Botones flotantes -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="abrirModal()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="toggleTheme()">
+        <ion-icon [name]="isDark ? 'sunny-outline' : 'moon-outline'"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
 </ion-content>

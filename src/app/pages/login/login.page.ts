@@ -9,18 +9,19 @@ import { AuthService } from 'src/app/auth/auth.service';
   standalone: false,
 })
 export class LoginPage {
-  email = 'test@test.com';
-  password = '1234';
+  email = '';
+  password = '';
   isDark = false;
 
   constructor(private auth: AuthService, private router: Router) {
-    this.loadThemePreference();
+    this.isDark = localStorage.getItem('theme') === 'dark';
   }
 
-  login() {
-    const success = this.auth.login(this.email, this.password);
+  async login() {
+    const success = await this.auth.login(this.email, this.password);
+    
     if (success) {
-      this.router.navigateByUrl('/home', { replaceUrl: true });
+      this.router.navigateByUrl('/home');
     } else {
       alert('Credenciales incorrectas');
     }
@@ -30,11 +31,5 @@ export class LoginPage {
     this.isDark = !this.isDark;
     document.body.classList.toggle('dark', this.isDark);
     localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
-  }
-
-  private loadThemePreference() {
-    const savedTheme = localStorage.getItem('theme');
-    this.isDark = savedTheme === 'dark';
-    document.body.classList.toggle('dark', this.isDark);
   }
 }

@@ -18,6 +18,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
     
   },
+  {
+    path: 'prestamo/:id',
+    loadChildren: () => import('./pages/detalle-prestamos/detalle-prestamos.module').then( m => m.DetallePrestamosPageModule),
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

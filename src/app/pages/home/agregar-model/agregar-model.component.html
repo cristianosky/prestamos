@@ -1,0 +1,45 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-title>Nuevo préstamo</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="form-container">
+
+    <div class="custom-input">
+      <label>Nombre del deudor</label>
+      <ion-input [(ngModel)]="nombre" placeholder="Ej: Juan Pérez" fill="outline"></ion-input>
+    </div>
+
+    <div class="custom-input">
+      <label>Monto</label>
+      <ion-input type="number" [(ngModel)]="monto" placeholder="Ej: 150000" fill="outline" (ionInput)="calcularCuota()"></ion-input>
+    </div>
+
+    <div class="custom-input">
+      <label>Interés (%)</label>
+      <ion-input type="number" [(ngModel)]="interes" placeholder="Ej: 10" fill="outline" (ionInput)="calcularCuota()"></ion-input>
+    </div>
+
+    <div class="custom-input">
+      <label>Cuotas</label>
+      <ion-input type="number" [(ngModel)]="cuotas" placeholder="Ej: 5" fill="outline" (ionInput)="calcularCuota()"></ion-input>
+    </div>
+
+    <div class="cuota-box" *ngIf="valorCuota > 0">
+      <ion-icon name="calculator-outline"></ion-icon>
+      Cuota estimada: <strong>${{ valorCuota | number:'1.0-0' }}</strong>
+    </div>
+
+    <ion-button expand="block" shape="round" color="primary" (click)="guardar()">
+      <ion-icon name="save-outline" slot="start"></ion-icon>
+      Guardar préstamo
+    </ion-button>
+  </div>
+</ion-content>

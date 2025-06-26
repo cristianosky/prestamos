@@ -1,0 +1,62 @@
+.form-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.custom-input {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--ion-color-primary);
+    font-size: 0.9rem;
+  }
+
+  ion-input {
+    --background: var(--ion-color-step-50);
+    --border-radius: 8px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+    --color: var(--ion-text-color);
+    // border: 1px solid var(--ion-color-medium);
+    transition: border 0.3s ease;
+  }
+
+  ion-input:focus-within {
+    border-color: var(--ion-color-primary);
+  }
+}
+
+.cuota-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--cuota-bg-color);
+  border-left: 4px solid var(--ion-color-success);
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: var(--ion-color-success);
+}
+
+ion-button {
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+
+::ng-deep ion-input[type="number"] input::-webkit-outer-spin-button,
+::ng-deep ion-input[type="number"] input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+::ng-deep ion-input[type="number"] input {
+  -moz-appearance: textfield; /* Firefox */
+}

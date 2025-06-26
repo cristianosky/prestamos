@@ -1,31 +1,31 @@
 import { Injectable } from '@angular/core';
+import {
+  Auth,
+  signInWithEmailAndPassword,
+  browserLocalPersistence,
+  setPersistence,
+} from '@angular/fire/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly KEY = 'session';
-  private isAuthenticated = false;
+  constructor(private auth: Auth) {}
 
-  constructor() {
-    const session = localStorage.getItem(this.KEY);
-    this.isAuthenticated = session === 'true';
-  }
-
-  login(email: string, password: string): boolean {
-    // Lógica de autenticación simple (puedes conectarlo a una API real)
-    if (email === 'test@test.com' && password === '1234') {
-      this.isAuthenticated = true;
-      localStorage.setItem(this.KEY, 'true');
+  async login(email: string, password: string): Promise<boolean> {
+    try {
+      await setPersistence(this.auth, browserLocalPersistence); // <-- Aquí se aplica la persistencia
+      await signInWithEmailAndPassword(this.auth, email, password);
       return true;
+    } catch (error) {
+      console.error('Error de login:', error);
+      return false;
     }
-    return false;
   }
 
-  logout(): void {
-    this.isAuthenticated = false;
-    localStorage.removeItem(this.KEY);
+  logout() {
+    return this.auth.signOut();
   }
 
   isLoggedIn(): boolean {
-    return this.isAuthenticated;
+    return !!this.auth.currentUser;
   }
 }

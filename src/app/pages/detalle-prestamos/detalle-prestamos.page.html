@@ -1,0 +1,49 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalle del préstamo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ng-container *ngIf="prestamo">
+    <h2>{{ prestamo.nombre }}</h2>
+    <ion-card>
+      <ion-card-content>
+        <p><strong>Monto:</strong> ${{ prestamo.monto | number:'1.0-0' }}</p>
+        <p><strong>Interés:</strong> {{ prestamo.interes }}%</p>
+        <p><strong>Cuotas:</strong> {{ prestamo.cuotas }}</p>
+        <p><strong>Pagadas:</strong> {{ prestamo.cuotasPagadas || 0 }}</p>
+        <p><strong>Valor por cuota:</strong> ${{ prestamo.valorCuota | number:'1.0-0' }}</p>
+
+        <ion-progress-bar
+          [value]="(prestamo.cuotasPagadas || 0) / prestamo.cuotas"
+          color="tertiary"
+        ></ion-progress-bar>
+
+        <ion-button
+          expand="block"
+          color="success"
+          class="ion-margin-top"
+          [disabled]="prestamo.cuotasPagadas >= prestamo.cuotas"
+          (click)="pagarCuota()"
+        >
+          Registrar pago de cuota
+        </ion-button>
+
+        <ion-chip color="success" *ngIf="prestamo.cuotasPagadas >= prestamo.cuotas">
+          <ion-icon name="checkmark-done-outline" color="light"></ion-icon>
+          <ion-label>Préstamo pagado</ion-label>
+        </ion-chip>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ng-container *ngIf="!prestamo">
+    <ion-text color="danger">
+      <p>No se pudo cargar el préstamo.</p>
+    </ion-text>
+  </ng-container>
+</ion-content>

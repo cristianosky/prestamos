@@ -8,12 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   constructor() {
-    
+    this.loadThemePreference();
   }
    isDark = false;
 
-  toggleTheme() {
-    this.isDark = !this.isDark;
+  private loadThemePreference() {
+    const savedTheme = localStorage.getItem('theme');
+    this.isDark = savedTheme === 'dark';
     document.body.classList.toggle('dark', this.isDark);
   }
 }

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { AgregarModelComponent } from './agregar-model/agregar-model.component';
 import { FirebaseDataService } from 'src/app/auth/firebase-data.service';
 import { doc, updateDoc } from '@angular/fire/firestore';
 import { Firestore } from '@angular/fire/firestore';
+import { ConfirmacionEliminarComponent } from 'src/app/modals/confirmacion-eliminar/confirmacion-eliminar.component';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,7 @@ export class HomePage implements OnInit {
     private authService: AuthService,
     private router: Router,
     private modalCtrl: ModalController,
+    private alertCtrl: AlertController,
     private firebaseService: FirebaseDataService,
     private firestore: Firestore
   ) {
@@ -85,5 +87,30 @@ export class HomePage implements OnInit {
   
   verEstadisticas() {
     this.router.navigateByUrl('/estadisticas');
+  }
+
+  async confirmarEliminar(prestamo: any) {
+    const modal = await this.modalCtrl.create({
+      component: ConfirmacionEliminarComponent,
+      componentProps: { nombre: prestamo.nombre },
+      breakpoints: [0, 0.4],
+      initialBreakpoint: 0.4,
+      handle: true,
+      cssClass: 'modal-bottom-sheet'
+    });
+
+    await modal.present();
+
+    const { role } = await modal.onWillDismiss();
+    if (role === 'confirm') {
+      this.eliminarPrestamo(prestamo.id);
+    }
+  }
+
+  eliminarPrestamo(id: string) {
+    this.firebaseService.eliminarPrestamo(id).then(() => {
+      // Puedes actualizar el listado si es necesario
+      // this.cargarPrestamos(); // si tienes una función así
+    });
   }
 }

@@ -1,0 +1,30 @@
+.confirmacion-sheet {
+  text-align: center;
+  padding-top: 1rem;
+  color: var(--ion-text-color);
+
+  .icono-alerta {
+    font-size: 3rem;
+    color: var(--ion-color-danger);
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+    color: var(--ion-color-medium);
+  }
+
+  .botones-acciones {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+
+    ion-button {
+      flex: 1;
+    }
+  }
+}

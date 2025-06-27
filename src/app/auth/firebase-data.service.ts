@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, collectionData, doc, setDoc, query, orderBy } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, collectionData, doc, setDoc, query, orderBy, deleteDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -17,10 +17,10 @@ export class FirebaseDataService {
 
   // Obtener todos los registros de una colección
   obtenerDatos(coleccion: string): Observable<any[]> {
-  const ref = collection(this.firestore, coleccion);
-  const q = query(ref, orderBy('creadoEn', 'desc')); // 👈 ordenar por fecha descendente
-  return collectionData(q, { idField: 'id' });
-}
+    const ref = collection(this.firestore, coleccion);
+    const q = query(ref, orderBy('creadoEn', 'desc')); // 👈 ordenar por fecha descendente
+    return collectionData(q, { idField: 'id' });
+  }
 
   // (Opcional) Guardar con ID personalizado
   guardarConID(id: string, data: any, coleccion: string) {
@@ -28,4 +28,10 @@ export class FirebaseDataService {
     return setDoc(docRef, data);
   }
   
+
+  eliminarPrestamo(id: string) {
+    const prestamoDoc = doc(this.firestore, 'prestamos', id);
+    return deleteDoc(prestamoDoc);
+  }
+
 }

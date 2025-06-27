@@ -1,0 +1,16 @@
+<ion-content class="ion-padding">
+  <div class="confirmacion-sheet">
+    <ion-icon name="trash-outline" class="icono-alerta"></ion-icon>
+    <h2>¿Eliminar préstamo?</h2>
+    <p>Estás a punto de eliminar <strong>{{ nombre }}</strong>.</p>
+
+    <div class="botones-acciones">
+      <ion-button expand="block" fill="clear" color="medium" (click)="cancelar()">
+        Cancelar
+      </ion-button>
+      <ion-button expand="block" color="danger" (click)="confirmar()">
+        Eliminar
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { AgregarModelComponent } from './agregar-model/agregar-model.component';
+import { ConfirmacionEliminarComponent } from 'src/app/modals/confirmacion-eliminar/confirmacion-eliminar.component';
 
 
 @NgModule({
@@ -15,6 +16,6 @@ import { AgregarModelComponent } from './agregar-model/agregar-model.component';
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, AgregarModelComponent]
+  declarations: [HomePage, AgregarModelComponent, ConfirmacionEliminarComponent]
 })
 export class HomePageModule {}

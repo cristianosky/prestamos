@@ -14,3 +14,22 @@ ion-progress-bar {
   height: 10px;
   border-radius: 8px;
 }
+
+
+.progreso-personalizado {
+  --progress-background: var(--ion-color-step-150); // fondo neutro
+  --progress-bar-background: var(--ion-color-primary); // color rosa definido
+
+  height: 10px;
+  border-radius: 10px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+// Si usas tema oscuro
+@media (prefers-color-scheme: dark) {
+  .progreso-personalizado {
+    --progress-background: var(--ion-color-step-300);
+  }
+}

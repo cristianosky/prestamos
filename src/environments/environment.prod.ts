@@ -1,12 +1,12 @@
 export const environment = {
   production: true,
   firebaseConfig: {
-    apiKey: "AIzaSyBbBSzuIm7te3yaWznD5s9CbD5IqX-NdN8",
-    authDomain: "prestame-test.firebaseapp.com",
-    projectId: "prestame-test",
-    storageBucket: "prestame-test.firebasestorage.app",
-    messagingSenderId: "680541066966",
-    appId: "1:680541066966:web:d9de5ed2a352320bf8db77",
-    measurementId: "G-GKMLYLWDFK"
+    apiKey: "AIzaSyCdaf6btyxiwRe7VLHpvNLIsHyAuzGvOkg",
+    authDomain: "prestamos-69926.firebaseapp.com",
+    projectId: "prestamos-69926",
+    storageBucket: "prestamos-69926.firebasestorage.app",
+    messagingSenderId: "381077865985",
+    appId: "1:381077865985:web:6d5a46c983c3639574e200",
+    measurementId: "G-5HQ1KBY93W"
   }
 };

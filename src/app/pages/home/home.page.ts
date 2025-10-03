@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { AgregarModelComponent } from './agregar-model/agregar-model.component';
@@ -7,7 +7,7 @@ import { FirebaseDataService } from 'src/app/auth/firebase-data.service';
 import { doc, updateDoc } from '@angular/fire/firestore';
 import { Firestore } from '@angular/fire/firestore';
 import { ConfirmacionEliminarComponent } from 'src/app/modals/confirmacion-eliminar/confirmacion-eliminar.component';
-
+import { ActionPerformed, PushNotificationSchema, PushNotifications, Token } from '@capacitor/push-notifications';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -26,9 +26,50 @@ export class HomePage implements OnInit {
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
     private firebaseService: FirebaseDataService,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private _platform: Platform
   ) {
     this.isDark = document.body.classList.contains('dark');
+
+    if(this._platform.is('capacitor')) {
+      this.initNotifications();
+    }
+  }
+
+  initNotifications() {
+    console.log('Initializing HomePage');
+
+    // Request permission to use push notifications
+    // iOS will prompt user and return if they granted permission or not
+    // Android will just grant without prompting
+    PushNotifications.requestPermissions().then((result) => {
+      if (result.receive === 'granted') {
+        // Register with Apple / Google to receive push via APNS/FCM
+        PushNotifications.register();
+      } else {
+        // Show some error
+      }
+    });
+
+    // On success, we should be able to receive notifications
+    PushNotifications.addListener('registration', (token: Token) => {
+      alert('Push registration success, token: ' + token.value);
+    });
+
+    // Some issue with our setup and push will not work
+    PushNotifications.addListener('registrationError', (error: any) => {
+      alert('Error on registration: ' + JSON.stringify(error));
+    });
+
+    // Show us the notification payload if the app is open on our device
+    PushNotifications.addListener('pushNotificationReceived', (notification: PushNotificationSchema) => {
+      alert('Push received: ' + JSON.stringify(notification));
+    });
+
+    // Method called when tapping on a notification
+    PushNotifications.addListener('pushNotificationActionPerformed', (notification: ActionPerformed) => {
+      alert('Push action performed: ' + JSON.stringify(notification));
+    });
   }
 
   ngOnInit() {
